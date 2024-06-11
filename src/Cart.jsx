@@ -1,5 +1,13 @@
+import { useCartStore } from "./store/cartStore";
 
-const Cart = ({cart, setCart}) => {
+const Cart = () => {
+    const {cart, removeFromCart, clearCart} = useCartStore((state) => ({
+        cart: state.cart,
+        removeFromCart: state.removeFromCart,
+        clearCart: state.clearCart
+    }))
+
+
     return (
         <div>
             <h2>Cart</h2>
@@ -7,15 +15,13 @@ const Cart = ({cart, setCart}) => {
                 cart?.map((product) => (
                     <div key={product.id}>
                         <span>{product.name}</span>
-                        <button onClick={() => setCart(
-                            cart.filter(productItem => productItem.id !== product.id)
-                        )}>
+                        <button onClick={() => removeFromCart(product.id)}>
                             Remove
                         </button>
                     </div>
                 ))}
                 {cart.length > 0 && (
-                    <button onClick={() => setCart([])}>Clear Cart</button>
+                    <button onClick={clearCart}>Clear Cart</button>
                 )}
             
         </div>

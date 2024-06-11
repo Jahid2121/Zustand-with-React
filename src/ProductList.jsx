@@ -1,5 +1,7 @@
+import { useCartStore } from "./store/cartStore";
 
-const ProductList = ({products, setCart}) => {
+const ProductList = ({products}) => {
+    const addToCart = useCartStore((state) => state.addToCart)
     return (
         <div>
     
@@ -8,7 +10,7 @@ const ProductList = ({products, setCart}) => {
             <div key={product.id}>
                 <h2>{product.name}</h2>
                 <p>{product.description}</p>
-                <button onClick={() => setCart((cart) => [...cart, product])}>
+                <button onClick={() => addToCart(product)}>
                     Add to Cart
                 </button>
 
